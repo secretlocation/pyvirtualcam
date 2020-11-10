@@ -53,6 +53,9 @@ class CameraBase(ABC):
 
     @abstractmethod
     def send(self, frame: np.ndarray) -> None:
+        if frame.shape[0] != self._height or frame.shape[1] != self._width:
+            raise ValueError('CameraBase: send(): frame must be same size as defined in constructor.')
+
         self._frames_sent += 1
         
         self._fps_counter.measure()
